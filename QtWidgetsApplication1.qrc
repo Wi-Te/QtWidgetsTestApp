@@ -1,0 +1,12 @@
+<RCC>
+  <qresource prefix="QtWidgetsApplication1">
+    <file>Images/Box.png</file>
+    <file>Images/Circle.png</file>
+    <file>Images/Link.png</file>
+    <file>Images/Load.png</file>
+    <file>Images/Pan.png</file>
+    <file>Images/Save.png</file>
+    <file>Images/Trash.png</file>
+    <file>Images/Triangle.png</file>
+  </qresource>
+</RCC>
