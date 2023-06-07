@@ -20,7 +20,7 @@ void PaintedWidget::mousePressEvent(QMouseEvent* event) {
 	if (event) {
 		switch (event->button()) {
 		case Qt::MouseButton::LeftButton:
-			emit SignalStart(event->position());
+			emit SignalStart(event->position().toPoint());
 			break;
 		case Qt::MouseButton::RightButton:
 			emit SignalEsc();
@@ -31,13 +31,13 @@ void PaintedWidget::mousePressEvent(QMouseEvent* event) {
 
 void PaintedWidget::mouseMoveEvent(QMouseEvent* event) {
 	if (event) {
-		emit SignalUpdFigure(event->position());
+		emit SignalUpdFigure(event->position().toPoint());
 	}
 }
 
 void PaintedWidget::mouseReleaseEvent(QMouseEvent* event) {
 	if (event && Qt::MouseButton::LeftButton == event->button()) {		
-		emit SignalDone(event->position());
+		emit SignalDone(event->position().toPoint());
 	}
 }
 

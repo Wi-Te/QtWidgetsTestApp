@@ -22,10 +22,10 @@ private:
     QPixmap* pixmap{ nullptr };
 
 signals:
-    void SignalStart(const QPointF&);
-    void SignalDone(const QPointF&);
+    void SignalStart(const QPoint&);
+    void SignalDone(const QPoint&);
     void SignalEsc();
-    void SignalUpdFigure(const QPointF&);
+    void SignalUpdFigure(const QPoint&);
     void SignalUpdImage(const QSize&);
 };
 

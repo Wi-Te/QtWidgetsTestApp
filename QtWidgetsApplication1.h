@@ -3,7 +3,9 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_QtWidgetsApplication1.h"
 
-class BaseFigure;
+namespace fig {
+    class Base;
+}
 class QtWidgetsApplication1 : public QMainWindow {
     Q_OBJECT
 
@@ -15,17 +17,15 @@ private:
     enum class Tools;
     Tools selectedTool;
 
-    enum class State;
-    State currentState;
-
+    //QImage buffer{};
     QPixmap buffer{};
-    QPixmap image{};
+    QPixmap picture{};
 
-    std::vector<BaseFigure> allFigures{};
-    std::unique_ptr<BaseFigure> tempFigure{ nullptr };
+    std::unique_ptr<fig::Base> tempFigure{ nullptr };
+    std::vector<std::unique_ptr<fig::Base>> allFigures{};
 
     void renderBuffer();
-    void prepareImage();
+    void preparePict();
 
     Ui::QtWidgetsApplication1Class ui;
 
@@ -33,8 +33,8 @@ private slots:
     void ToolChanged(QAction*);
 
     void SlotEsc();
-    void SlotStart(const QPointF&);
-    void SlotDone(const QPointF&);
-    void SlotUpdFigure(const QPointF&);
+    void SlotStart(const QPoint&);
+    void SlotDone(const QPoint&);
+    void SlotUpdFigure(const QPoint&);
     void SlotUpdImage(const QSize&);
 };

@@ -49,7 +49,7 @@
     <ClCompile Include="PaintedWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BaseFigure.cpp">
+    <ClCompile Include="Figures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,7 +59,7 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaseFigure.h">
+    <ClInclude Include="Figures.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
