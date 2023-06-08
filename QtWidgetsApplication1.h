@@ -19,10 +19,10 @@ private:
 
     //QImage buffer{};
     QPixmap buffer{};
-    QPixmap picture{};
-
+    std::shared_ptr<QPixmap> picture{ std::make_unique<QPixmap>() };
     std::unique_ptr<fig::Base> tempFigure{ nullptr };
-    std::vector<std::unique_ptr<fig::Base>> allFigures{};
+    std::vector<std::shared_ptr<fig::Base>> allFigures{};
+    std::shared_ptr<fig::Base> selectedFigure{ nullptr };
 
     void renderBuffer();
     void preparePict();

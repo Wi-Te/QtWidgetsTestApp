@@ -25,9 +25,6 @@
    <string>Test App</string>
   </property>
   <widget class="PaintedWidget" name="centralWidget">
-   <property name="focusPolicy">
-    <enum>Qt::StrongFocus</enum>
-   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">
      <number>0</number>
@@ -65,99 +62,7 @@
    <addaction name="actionSave"/>
    <addaction name="actionLoad"/>
   </widget>
-   <actiongroup name="RadioButtons">
-   <action name="actionTriangle">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="QtWidgetsApplication1.qrc">
-     <normaloff>:/QtWidgetsApplication1/Images/Triangle.png</normaloff>:/QtWidgetsApplication1/Images/Triangle.png</iconset>
-   </property>
-   <property name="text">
-    <string>Triangle</string>
-   </property>
-   <property name="toolTip">
-    <string>Draws a triangle</string>
-   </property>
-  </action>
-  <action name="actionRect">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="QtWidgetsApplication1.qrc">
-     <normaloff>:/QtWidgetsApplication1/Images/Box.png</normaloff>:/QtWidgetsApplication1/Images/Box.png</iconset>
-   </property>
-   <property name="text">
-    <string>Rect</string>
-   </property>
-   <property name="toolTip">
-    <string>Draws a rectangle</string>
-   </property>
-  </action>
-  <action name="actionCircle">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="QtWidgetsApplication1.qrc">
-     <normaloff>:/QtWidgetsApplication1/Images/Circle.png</normaloff>:/QtWidgetsApplication1/Images/Circle.png</iconset>
-   </property>
-   <property name="text">
-    <string>Circle</string>
-   </property>
-   <property name="toolTip">
-    <string>Draws a circle</string>
-   </property>
-  </action>
-  <action name="actionLink">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="QtWidgetsApplication1.qrc">
-     <normaloff>:/QtWidgetsApplication1/Images/Link.png</normaloff>:/QtWidgetsApplication1/Images/Link.png</iconset>
-   </property>
-   <property name="text">
-    <string>Link</string>
-   </property>
-   <property name="toolTip">
-    <string>Links two shapes</string>
-   </property>
-  </action>
-  <action name="actionMove">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="QtWidgetsApplication1.qrc">
-     <normaloff>:/QtWidgetsApplication1/Images/Pan.png</normaloff>:/QtWidgetsApplication1/Images/Pan.png</iconset>
-   </property>
-   <property name="text">
-    <string>Move</string>
-   </property>
-   <property name="toolTip">
-    <string>Moves a shape</string>
-   </property>
-  </action>
-  <action name="actionTrash">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="QtWidgetsApplication1.qrc">
-     <normaloff>:/QtWidgetsApplication1/Images/Trash.png</normaloff>:/QtWidgetsApplication1/Images/Trash.png</iconset>
-   </property>
-   <property name="text">
-    <string>Trash</string>
-   </property>
-   <property name="toolTip">
-    <string>Removes a shape</string>
-   </property>
-  </action>
-   </actiongroup>
-   <action name="actionSave">
+  <action name="actionSave">
    <property name="icon">
     <iconset resource="QtWidgetsApplication1.qrc">
      <normaloff>:/QtWidgetsApplication1/Images/Save.png</normaloff>:/QtWidgetsApplication1/Images/Save.png</iconset>
@@ -181,6 +86,98 @@
     <string>Loads shapes from file</string>
    </property>
   </action>
+  <actiongroup name="RadioButtons">
+   <action name="actionTriangle">
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="icon">
+     <iconset resource="QtWidgetsApplication1.qrc">
+      <normaloff>:/QtWidgetsApplication1/Images/Triangle.png</normaloff>:/QtWidgetsApplication1/Images/Triangle.png</iconset>
+    </property>
+    <property name="text">
+     <string>Triangle</string>
+    </property>
+    <property name="toolTip">
+     <string>Draws a triangle</string>
+    </property>
+   </action>
+   <action name="actionRect">
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="icon">
+     <iconset resource="QtWidgetsApplication1.qrc">
+      <normaloff>:/QtWidgetsApplication1/Images/Box.png</normaloff>:/QtWidgetsApplication1/Images/Box.png</iconset>
+    </property>
+    <property name="text">
+     <string>Rect</string>
+    </property>
+    <property name="toolTip">
+     <string>Draws a rectangle</string>
+    </property>
+   </action>
+   <action name="actionCircle">
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="icon">
+     <iconset resource="QtWidgetsApplication1.qrc">
+      <normaloff>:/QtWidgetsApplication1/Images/Circle.png</normaloff>:/QtWidgetsApplication1/Images/Circle.png</iconset>
+    </property>
+    <property name="text">
+     <string>Circle</string>
+    </property>
+    <property name="toolTip">
+     <string>Draws a circle</string>
+    </property>
+   </action>
+   <action name="actionLink">
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="icon">
+     <iconset resource="QtWidgetsApplication1.qrc">
+      <normaloff>:/QtWidgetsApplication1/Images/Link.png</normaloff>:/QtWidgetsApplication1/Images/Link.png</iconset>
+    </property>
+    <property name="text">
+     <string>Link</string>
+    </property>
+    <property name="toolTip">
+     <string>Links two shapes</string>
+    </property>
+   </action>
+   <action name="actionMove">
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="icon">
+     <iconset resource="QtWidgetsApplication1.qrc">
+      <normaloff>:/QtWidgetsApplication1/Images/Pan.png</normaloff>:/QtWidgetsApplication1/Images/Pan.png</iconset>
+    </property>
+    <property name="text">
+     <string>Move</string>
+    </property>
+    <property name="toolTip">
+     <string>Moves a shape</string>
+    </property>
+   </action>
+   <action name="actionTrash">
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="icon">
+     <iconset resource="QtWidgetsApplication1.qrc">
+      <normaloff>:/QtWidgetsApplication1/Images/Trash.png</normaloff>:/QtWidgetsApplication1/Images/Trash.png</iconset>
+    </property>
+    <property name="text">
+     <string>Trash</string>
+    </property>
+    <property name="toolTip">
+     <string>Removes a shape</string>
+    </property>
+   </action>
+  </actiongroup>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

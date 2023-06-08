@@ -5,9 +5,9 @@
 PaintedWidget::PaintedWidget(QWidget* parent) : QWidget(parent) {}
 PaintedWidget::~PaintedWidget() {}
 
-void PaintedWidget::assignPixmap(QPixmap* ptr){
-	this->pixmap = ptr;
-}
+void PaintedWidget::assignPixmap(std::shared_ptr<QPixmap> ptr) {
+	pixmap.swap(ptr);
+};
 
 void PaintedWidget::keyPressEvent(QKeyEvent* event) {	
 	if (Qt::Key::Key_Escape == event->key()) {
