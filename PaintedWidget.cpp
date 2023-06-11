@@ -1,12 +1,12 @@
 #include "PaintedWidget.h"
-#include "qpainter.h"
-#include "qevent.h"
+#include <qpainter.h>
+#include <qevent.h>
 
 PaintedWidget::PaintedWidget(QWidget* parent) : QWidget(parent) {}
 PaintedWidget::~PaintedWidget() {}
 
-void PaintedWidget::assignPixmap(std::shared_ptr<QPixmap> ptr) {
-	pixmap.swap(ptr);
+void PaintedWidget::assignPixmap(QPixmap* ptr) {
+	pixmap = ptr;
 };
 
 void PaintedWidget::keyPressEvent(QKeyEvent* event) {	

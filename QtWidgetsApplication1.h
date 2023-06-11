@@ -5,6 +5,7 @@
 
 namespace fig {
     class Base;
+    class ALink;
 }
 class QtWidgetsApplication1 : public QMainWindow {
     Q_OBJECT
@@ -17,12 +18,26 @@ private:
     enum class Tools;
     Tools selectedTool;
 
-    //QImage buffer{};
     QPixmap buffer{};
-    std::shared_ptr<QPixmap> picture{ std::make_unique<QPixmap>() };
+    QPixmap picture{};
+
+    QPoint moveOffset{};
+    QPoint originalPos{};
+
     std::unique_ptr<fig::Base> tempFigure{ nullptr };
     std::vector<std::shared_ptr<fig::Base>> allFigures{};
-    std::shared_ptr<fig::Base> selectedFigure{ nullptr };
+
+    std::unique_ptr<fig::ALink> tempLink{ nullptr };
+    std::vector<std::shared_ptr<fig::ALink>> allLinks{};
+    std::vector<std::shared_ptr<fig::ALink>> selectedLinks{};
+
+    void moveSelectedFigureTo(const QPoint&);
+
+    bool hover{ false };
+    bool moving{ false };
+    std::shared_ptr<fig::Base> hovered{ nullptr };
+    std::shared_ptr<fig::Base> selected{ nullptr };
+    bool setFigureAt(std::shared_ptr<fig::Base>&, const QPoint&);
 
     void renderBuffer();
     void preparePict();
@@ -37,4 +52,7 @@ private slots:
     void SlotDone(const QPoint&);
     void SlotUpdFigure(const QPoint&);
     void SlotUpdImage(const QSize&);
+
+    void SlotSaveToFile();
+    void SlotLoadFromFile();
 };

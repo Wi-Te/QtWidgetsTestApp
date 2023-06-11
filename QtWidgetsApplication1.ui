@@ -25,6 +25,9 @@
    <string>Test App</string>
   </property>
   <widget class="PaintedWidget" name="centralWidget">
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">
      <number>0</number>

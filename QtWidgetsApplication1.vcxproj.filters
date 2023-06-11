@@ -52,6 +52,9 @@
     <ClCompile Include="Figures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ALink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="PaintedWidget.h">
@@ -60,6 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Figures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ALink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

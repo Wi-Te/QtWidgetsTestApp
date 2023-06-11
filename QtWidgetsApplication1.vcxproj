@@ -87,6 +87,7 @@
     <QtUic Include="QtWidgetsApplication1.ui" />
     <QtMoc Include="QtWidgetsApplication1.h" />
     <ClCompile Include="Figures.cpp" />
+    <ClCompile Include="ALink.cpp" />
     <ClCompile Include="PaintedWidget.cpp" />
     <ClCompile Include="QtWidgetsApplication1.cpp" />
     <ClCompile Include="main.cpp" />
@@ -98,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Figures.h" />
+    <ClInclude Include="ALink.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -8,7 +8,7 @@ public:
     explicit PaintedWidget(QWidget* parent = 0);
     ~PaintedWidget();
 
-    void assignPixmap(std::shared_ptr<QPixmap>);
+    void assignPixmap(QPixmap*);
 
 protected:
     void keyPressEvent(QKeyEvent*);
@@ -19,7 +19,7 @@ protected:
     void paintEvent(QPaintEvent*);
 
 private:
-    std::shared_ptr<QPixmap> pixmap{ nullptr };
+    QPixmap* pixmap{ nullptr };
 
 signals:
     void SignalStart(const QPoint&);
