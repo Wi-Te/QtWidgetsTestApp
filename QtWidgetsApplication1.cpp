@@ -1,6 +1,5 @@
 #include "QtWidgetsApplication1.h"
 #include <qxmlstream.h>
-#include <QtXml\qdom.h>
 #include <qmessagebox.h>
 #include <qfiledialog.h>
 #include <qpainter>
@@ -314,6 +313,11 @@ void QtWidgetsApplication1::preparePict() {
 }
 
 void QtWidgetsApplication1::SlotSaveToFile() {
+    auto ca = ui.RadioButtons->checkedAction();
+    if (ca) {
+        ca->setChecked(false);
+    }
+
     selectedTool = Tools::None;
     SlotEsc();
     hover = false;
@@ -334,20 +338,91 @@ void QtWidgetsApplication1::SlotSaveToFile() {
     QXmlStreamWriter writer{ &xfile };
     writer.setAutoFormatting(true);
     writer.writeStartDocument();
-
+    writer.writeStartElement("QtWidgetsApplication1");
     writer.writeStartElement("figures");
-    for (const auto& fig : allFigures) {
+    for (const auto& fig : allFigures) {        
         fig->toXML(writer);
     }    
     writer.writeEndElement();
 
+    writer.writeStartElement("links");
+    for (const auto& link : allLinks) {
+        link->toXML(writer);
+    }
+    writer.writeEndElement();
+    writer.writeEndElement();
     writer.writeEndDocument();
     xfile.close();
 
     QMessageBox::information(this, "Saved", "Saved succesfully");
 }
 
+void QtWidgetsApplication1::ReadXMLFigures(QXmlStreamReader& reader, std::map<uintptr_t, std::shared_ptr<fig::Base>>& themap) {
+    while (reader.readNextStartElement()) {
+        if (QString{ "figure" } == reader.name()) {
+            auto attribs = reader.attributes();
+
+            bool havepoints{ true };
+            QPoint lt{};
+            QPoint rb{};            
+
+            bool hasvalue;
+            lt.setX(attribs.value(QString{ "left" }).toInt(&hasvalue));
+            havepoints &= hasvalue;
+            lt.setY(attribs.value(QString{ "top" }).toInt(&hasvalue));
+            havepoints &= hasvalue;
+            rb.setX(attribs.value(QString{ "right" }).toInt(&hasvalue));
+            havepoints &= hasvalue;
+            rb.setY(attribs.value(QString{ "bott" }).toInt(&hasvalue));
+            havepoints &= hasvalue;
+
+            uintptr_t id = attribs.value(QString{ "id" }).toLongLong();
+
+            if (havepoints && id > 0) {
+                auto ftype = attribs.value("type");
+                std::shared_ptr<fig::Base> tfigure{ nullptr };
+                if (QString{ "rect" } == ftype) {
+                    tfigure = std::make_shared<fig::Rect>(lt);
+                } else if (QString{ "circle" } == ftype){
+                    tfigure = std::make_shared<fig::Circle>(lt);
+                } else if (QString{ "triangle" } == ftype) {
+                    tfigure = std::make_shared<fig::Triangle>(lt);
+                }
+                if (tfigure) {
+                    tfigure->Complete(rb);
+                    themap.insert({ id, tfigure });
+                    allFigures.push_back(std::move(tfigure));
+                }
+            }
+        }
+
+        reader.skipCurrentElement();
+    }
+}
+
+void QtWidgetsApplication1::ReadXMLLinks(QXmlStreamReader& reader, const std::map<uintptr_t, std::shared_ptr<fig::Base>>& themap) {
+    while (reader.readNextStartElement()) {
+        if (QString{ "link" } == reader.name()) {
+            auto attribs = reader.attributes();
+            auto left = themap.find(attribs.value(QString{ "left" }).toLongLong());
+            auto right = themap.find(attribs.value(QString{ "right" }).toLongLong());
+            if (left != themap.end() && right != themap.end()) {
+                std::unique_ptr<fig::ALink> link = std::make_unique<fig::ALink>(left->second);
+                link->Complete(right->second);
+                allLinks.push_back(std::move(link));
+            }
+        }
+
+        reader.skipCurrentElement();
+    }
+}
+
 void QtWidgetsApplication1::SlotLoadFromFile() {
+    auto ca = ui.RadioButtons->checkedAction();
+    if (ca) {
+        ca->setChecked(false);
+    }
+
     selectedTool = Tools::None;
     SlotEsc();
     hover = false;
@@ -366,27 +441,51 @@ void QtWidgetsApplication1::SlotLoadFromFile() {
         return;
     }
 
-    QDomDocument doc{};
-    if (!doc.setContent(&xfile)) {
-        QMessageBox::warning(this, "Error parsing file", "Failed reading data from file [" + filename + "]");
-        xfile.close();
-        return;
-    }
-    xfile.close();
-
     if (!allLinks.empty()) {
         allLinks.clear();
     }
     if (!allFigures.empty()) {
         allFigures.clear();
     }
-    /*
-    auto figures = doc.elementsByTagName("figure");
-    for (auto i = 0; i < figures.count(); i++) {
-        auto node = figures.at(i);
-        node.attributes("type")
+
+    std::map<uintptr_t, std::shared_ptr<fig::Base>> addrmap{};
+
+    QXmlStreamReader reader{ &xfile };
+
+    //reading figures only
+    while (reader.readNextStartElement()) {
+        if (QString{ "QtWidgetsApplication1" } == reader.name()) {            
+            while (reader.readNextStartElement()) {
+                if (QString{ "figures" } == reader.name()) {
+                    ReadXMLFigures(reader, addrmap);
+                } else {
+                    reader.skipCurrentElement();
+                }
+            }
+        } else {
+            reader.skipCurrentElement();
+        }
     }
-    */
+
+    xfile.seek(0);
+    reader.setDevice(&xfile);
+    //restarted. reading links
+    while (reader.readNextStartElement()) {
+        if (QString{ "QtWidgetsApplication1" } == reader.name()) {
+            while (reader.readNextStartElement()) {
+                if (QString{ "links" } == reader.name()) {
+                    ReadXMLLinks(reader, addrmap);
+                } else {
+                    reader.skipCurrentElement();
+                }
+            }
+        } else {
+            reader.skipCurrentElement();
+        }
+    }
+
+
+    xfile.close();
     renderBuffer();
     preparePict();
 }

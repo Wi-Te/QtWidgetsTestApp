@@ -2,8 +2,8 @@
 #include <qxmlstream.h>
 #include <qpainter.h>
 #include <qpolygon.h>
-#include <qpoint.h>
 #include <qvariant.h>
+#include <qpoint.h>
 
 fig::Base::Base(const QPoint& point)
     : ll(point.x()), tt(point.y()) {}
@@ -50,13 +50,12 @@ QPoint fig::Base::getCorner() const {
 
 void fig::Base::InnerToXML(QXmlStreamWriter& writer, const QString& ftype) const {
     writer.writeStartElement("figure");
-    writer.writeAttribute("type", ftype);
-        writer.writeStartElement("pos-size");
-        writer.writeAttribute("left", QVariant{ ll }.toString());
-        writer.writeAttribute("top", QVariant{ tt }.toString());
-        writer.writeAttribute("right", QVariant{ ll + ww }.toString());
-        writer.writeAttribute("bott", QVariant{ tt + hh }.toString());
-        writer.writeEndElement();
+    writer.writeAttribute("type", ftype);    
+    writer.writeAttribute("id", QVariant{ reinterpret_cast<uintptr_t>(this) }.toString());
+    writer.writeAttribute("left", QVariant{ ll }.toString());
+    writer.writeAttribute("top", QVariant{ tt }.toString());
+    writer.writeAttribute("right", QVariant{ ll + ww }.toString());
+    writer.writeAttribute("bott", QVariant{ tt + hh }.toString());
     writer.writeEndElement();
 }
 

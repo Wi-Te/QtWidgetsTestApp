@@ -3,6 +3,7 @@
 #include <qpoint>
 
 class QPainter;
+class QXmlStreamWriter;
 namespace fig {
 	class Base;
 
@@ -20,6 +21,7 @@ namespace fig {
 		void FigureMoved(const std::shared_ptr<fig::Base>&);
 
 		void Draw(QPainter&) const;
+		void toXML(QXmlStreamWriter&) const;
 
 		bool connectedTo(const std::shared_ptr<fig::Base>&) const;
 		bool Valid() const;

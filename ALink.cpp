@@ -2,6 +2,9 @@
 #include "Figures.h"
 #include <qpoint>
 #include <qpainter>
+#include <qvariant.h>
+#include <qxmlstream.h>
+
 
 fig::ALink::ALink(std::shared_ptr<fig::Base> figure) {
 	fig1 = std::move(figure);
@@ -40,4 +43,11 @@ bool fig::ALink::connectedTo(const std::shared_ptr<fig::Base>& figure) const {
 
 bool fig::ALink::Valid() const {
 	return valid;
+}
+
+void fig::ALink::toXML(QXmlStreamWriter& writer) const {
+	writer.writeStartElement("link");
+	writer.writeAttribute("left", QVariant{ reinterpret_cast<uintptr_t>(fig1.get()) }.toString());
+	writer.writeAttribute("right", QVariant{ reinterpret_cast<uintptr_t>(fig2.get()) }.toString());
+	writer.writeEndElement();
 }

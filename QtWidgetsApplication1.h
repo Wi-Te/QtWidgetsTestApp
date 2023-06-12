@@ -7,6 +7,7 @@ namespace fig {
     class Base;
     class ALink;
 }
+class QXmlStreamReader;
 class QtWidgetsApplication1 : public QMainWindow {
     Q_OBJECT
 
@@ -38,6 +39,9 @@ private:
     std::shared_ptr<fig::Base> hovered{ nullptr };
     std::shared_ptr<fig::Base> selected{ nullptr };
     bool setFigureAt(std::shared_ptr<fig::Base>&, const QPoint&);
+
+    void ReadXMLFigures(QXmlStreamReader&, std::map<uintptr_t, std::shared_ptr<fig::Base>>&);
+    void ReadXMLLinks(QXmlStreamReader&, const std::map<uintptr_t, std::shared_ptr<fig::Base>>&);
 
     void renderBuffer();
     void preparePict();
